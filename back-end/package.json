@@ -1,7 +1,11 @@
 {
-  "name": "flatpod-server",
+  "name": "flattpod-server",
   "version": "1.0.0",
   "main": "main.js",
+  "engines": {
+    "node": "18.18.0",
+    "npm": "9.8.1"
+  },
   "scripts": {
     "build": "eslint . --ext .ts && tslint -p tsconfig.json && tsc",
     "start": "npm run build && node out/main"
