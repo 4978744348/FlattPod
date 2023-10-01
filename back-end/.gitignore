@@ -1,0 +1,4 @@
+.vscode
+.env.local
+node_modules
+out
