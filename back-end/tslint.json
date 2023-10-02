@@ -3,7 +3,7 @@
     "extends": ["tslint:recommended"],
     "rules": {
       "no-any": true,
-      "typedef": [true, "variable-declaration", "parameter", "property-declaration"],
+      "typedef": [false, "variable-declaration", "parameter", "property-declaration"],
       "no-console": false
     }
   }
