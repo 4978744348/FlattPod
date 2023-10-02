@@ -5,13 +5,32 @@ import { SQLQueryError } from "../../../../src/utils/errors/mysqlErrors";
 import { GET_ALL_ERROR } from "../../../../src/utils/messages/db/userDaoImpl.messages";
 
 export class UserDaoImpl implements UserDao {
-  // private readonly ADD_USER: string = '';
+
   private readonly GET_ALL_USERS = "SELECT id, login, password FROM user";
   private readonly GET_USER_BY_ID = "SELECT id, login, PASSWORD FROM user WHERE id =";
+  private readonly ADD_USER = "INSERT INTO user (login, password) VALUES (?, ?)";
 
-  // add(user: User): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  add(user: User): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      poolInstance.query(
+        this.ADD_USER,
+        [user.login, user.password],
+        (error: SQLQueryError | null) => {
+          if (error) {
+            console.error({
+              info: GET_ALL_ERROR,
+              code: error.code,
+              sqlMessage: error.message,
+            });
+            reject(error);
+          } else {
+            resolve(true);
+          }
+        }
+      );
+    });
+  }
+
   getAll(): Promise<User[]> {
     return new Promise((resolve, reject) => {
       const users: User[] = [];

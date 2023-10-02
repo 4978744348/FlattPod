@@ -1,16 +1,15 @@
 export class User {
 
-  private _id: number;
+  private _id: number | undefined;
   private _login: string;
   private _password: string;
 
-  constructor(id: number, login: string, password: string) {
-    this._id = id;
+  constructor(login: string, password: string) {
     this._login = login;
     this._password = password;
   }
 
-  get id(): number {
+  get id(): number | undefined {
     return this._id;
   }
 

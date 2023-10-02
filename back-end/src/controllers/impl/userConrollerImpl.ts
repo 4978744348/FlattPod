@@ -1,11 +1,10 @@
 import { Request, Response, Router } from "express";
 import { UserService, UserServiceImpl } from '../../services';
 import { User } from '../../types';
-import { UserController } from '../userController';
 import { validationUrlPath } from '../../utils/regex';
 
 
-export class UserControllerImpl implements UserController {
+export class UserControllerImpl {
 
   private static readonly userService: UserService = new UserServiceImpl();
   public readonly router: Router = Router();
@@ -17,12 +16,12 @@ export class UserControllerImpl implements UserController {
   private initRoutes(): void {
     this.router.get('/', this.handleGetAllUsers);
     this.router.get('/:id', this.handleGetByIdUser);
-    // this.router.post('/', this.handleAddUser);
-    // this.router.put('/:id', this. handleUpdateUser);
-    // this.router.delete('/:id', this. handleDeleteUser);
+    this.router.post('/create', this.handleAddUser);
+    // this.router.put('/update/:id', this. handleUpdateUser);
+    // this.router.delete('/delete/:id', this. handleDeleteUser);
   }
 
-  async handleGetAllUsers(req: Request, res: Response): Promise<void> {
+  private async handleGetAllUsers(req: Request, res: Response): Promise<void> {
     try {
       if (req.method !== 'GET') {
         res.status(405).send('Method Not Allowed');
@@ -36,7 +35,7 @@ export class UserControllerImpl implements UserController {
     }
   }
 
-  async handleGetByIdUser(req: Request, res: Response): Promise<void> {
+  private async handleGetByIdUser(req: Request, res: Response): Promise<void> {
     try {
       if (req.method !== 'GET') {
         res.status(405).send('Method Not Allowed');
@@ -53,13 +52,27 @@ export class UserControllerImpl implements UserController {
       res.status(500).send('Internal Server Error');
     }
   }
-  // handleAddUser(): Promise<void> {
+
+  private async handleAddUser(req: Request, res: Response): Promise<void> {
+    try {
+      if (req.method !== 'POST') {
+        res.status(405).send('Method Not Allowed');
+      }
+      const result = await UserControllerImpl.userService.createUser(new User(req.body.login, req.body.password));
+      if (result) {
+        res.status(204).send();
+      } else {
+        res.status(400).send('user was not created');
+      }
+    } catch (error) {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(500).send('Internal Server Error');
+    }
+  }
+  // handleUpdateUser(req: Request, res: Response): Promise<void> {
   //   throw new Error("Method not implemented.");
   // }
-  // handleUpdateUser(): Promise<void> {
-  //   throw new Error("Method not implemented.");
-  // }
-  // handleDeleteUser(): Promise<void> {
+  // handleDeleteUser(req: Request, res: Response): Promise<void> {
   //   throw new Error("Method not implemented.");
   // }
 }
