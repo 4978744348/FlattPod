@@ -1,5 +1,5 @@
 export const isValidUrlPath = (value: string): boolean => {
-  return /^\/\d+$/.test(value);
+  return !/[^a-zA-Z0-9\\/]/.test(value);
 };
 
 export const isValidPostBody = (...body: string[]): boolean => {
