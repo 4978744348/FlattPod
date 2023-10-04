@@ -2,6 +2,7 @@
   "name": "flattpod-server",
   "version": "1.0.0",
   "main": "main.js",
+  "private": true,
   "engines": {
     "node": "18.18.0",
     "npm": "9.8.1"
