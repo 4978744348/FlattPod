@@ -4,7 +4,7 @@ dotenv.config();
 import { config } from "./config";
 import { MySQLConnection } from "./src/db/connection";
 import { RowDataPacket, Pool } from "mysql2";
-import { RouterUserController } from "./src/controllers/impl/userConrollerImpl";
+import { RouterUserController } from "./src/controllers/userConroller";
 
 export const app: Express = express();
 const port: string = config.port;

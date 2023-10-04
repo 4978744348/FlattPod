@@ -18,7 +18,7 @@ export class UserDaoImpl implements UserDao {
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
-              info: GET_ALL_ERROR,
+              info: GET_ALL_ERROR, // TODO: need to change error info
               code: error.code,
               sqlMessage: error.message,
             });
