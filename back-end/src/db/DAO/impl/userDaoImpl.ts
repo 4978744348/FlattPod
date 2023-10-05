@@ -22,6 +22,7 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: GET_ADD_ERROR,
               code: error.code,
+              query: error.sql,
               sqlMessage: error.message,
             });
             reject(error);
@@ -41,6 +42,7 @@ export class UserDaoImpl implements UserDao {
           console.error({
             info: GET_ALL_ERROR,
             code: error.code,
+            query: error.sql,
             sqlMessage: error.message,
           });
           reject(Error(error.stack));
@@ -60,6 +62,7 @@ export class UserDaoImpl implements UserDao {
           console.error({
             info: GET_BY_ID_ERROR,
             code: error.code,
+            query: error.sql,
             sqlMessage: error.message,
           });
           reject(Error(error.stack));
@@ -80,6 +83,7 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: DELETE_BY_ID_ERROR,
               code: error.code,
+              query: error.sql,
               sqlMessage: error.message,
             });
             reject(error);
@@ -100,6 +104,7 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: UPDATE_BY_ID_ERROR,
               code: error.code,
+              query: error.sql,
               sqlMessage: error.message,
             });
             reject(error);

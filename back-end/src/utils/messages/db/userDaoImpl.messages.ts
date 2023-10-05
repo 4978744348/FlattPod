@@ -16,7 +16,6 @@ export const GET_ADD_ERROR: userDaoError = {
   message: 'cannot create user'
 };
 
-// TODO: should to add ID for errors
 export const GET_BY_ID_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'getById',

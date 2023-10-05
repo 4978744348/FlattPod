@@ -1,3 +1,5 @@
 import { QueryError } from 'mysql2';
 
-export type SQLQueryError = QueryError;
+export type SQLQueryError = QueryError & {
+    sql?: string;
+};
