@@ -7,29 +7,30 @@ type userDaoError = {
 export const GET_ALL_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'getAll',
-  message: 'query is failed'
+  message: 'cannot get all users'
 };
 
 export const GET_ADD_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'add',
-  message: 'query is failed'
+  message: 'cannot create user'
 };
 
+// TODO: should to add ID for errors
 export const GET_BY_ID_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'getById',
-  message: 'query is failed'
+  message: 'cannot get user by id'
 };
 
 export const DELETE_BY_ID_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'deleteById',
-  message: 'query is failed'
+  message: 'cannot delete user by id'
 };
 
 export const UPDATE_BY_ID_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'updateById',
-  message: 'query is failed'
+  message: 'cannot update user by id'
 };
