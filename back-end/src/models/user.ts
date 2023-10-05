@@ -1,6 +1,6 @@
 export class User {
 
-  private _id: number | undefined;
+  private _id: string | undefined;
   private _login: string;
   private _password: string;
 
@@ -9,11 +9,11 @@ export class User {
     this._password = password;
   }
 
-  get id(): number | undefined {
+  get id(): string | undefined {
     return this._id;
   }
 
-  set id(id: number) {
+  set id(id: string) {
     this._id = id;
   }
 

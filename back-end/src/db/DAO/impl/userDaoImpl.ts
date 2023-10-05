@@ -10,6 +10,7 @@ export class UserDaoImpl implements UserDao {
   private readonly GET_USER_BY_ID = "SELECT id, login, PASSWORD FROM user WHERE id =";
   private readonly ADD_USER = "INSERT INTO user (login, password) VALUES (?, ?)";
   private readonly DLEETE_USER = "DELETE FROM user WHERE id=";
+  private readonly UPDATE_USER = "UPDATE user SET login = ?, password = ? WHERE id =";
 
   add(user: User): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -69,6 +70,7 @@ export class UserDaoImpl implements UserDao {
       });
     });
   }
+
   delete(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
@@ -88,7 +90,24 @@ export class UserDaoImpl implements UserDao {
       );
     });
   }
-  // update(id: number): boolean {
-  //   throw new Error('Method not implemented.');
-  // }
+  updateById(user: User): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      poolInstance.query(
+        this.UPDATE_USER + user.id,
+        [user.login, user.password],
+        (error: SQLQueryError | null) => {
+          if (error) {
+            console.error({
+              info: GET_ALL_ERROR, // TODO: need to change error info
+              code: error.code,
+              sqlMessage: error.message,
+            });
+            reject(error);
+          } else {
+            resolve(true);
+          }
+        }
+      );
+    });
+  }
 }

@@ -5,4 +5,5 @@ export interface UserService {
   getUserById (id: number): Promise<User[]>;
   createUser (user: User): Promise<boolean>;
   deleteUser (id: number): Promise<boolean>;
+  updateUserById (user: User): Promise<boolean>;
 }

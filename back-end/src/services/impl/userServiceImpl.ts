@@ -22,4 +22,8 @@ export class UserServiceImpl implements UserService {
   async deleteUser(id: number): Promise<boolean> {
     return await this.userDao.delete(id);
   }
+
+  async updateUserById(user: User): Promise<boolean> {
+    return await this.userDao.updateById(user);
+  }
 }

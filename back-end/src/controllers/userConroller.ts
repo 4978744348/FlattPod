@@ -19,7 +19,7 @@ export class UserController {
     this.router.get('/:id', this.handleGetByIdUser);
     this.router.post('/create', this.handleAddUser);
     this.router.delete('/delete/:id', this. handleDeleteUser);
-    // this.router.put('/update/:id', this. handleUpdateUser);
+    this.router.put('/update/:id', this. handleUpdateUser);
   }
 
   private async handleGetAllUsers(req: Request, res: Response): Promise<void> {
@@ -61,7 +61,7 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidPostBody(req.body.login, req.body.password)) {
-        const result = await UserController.userService.createUser(new User(req.body.login, req.body.password));
+        const result: boolean = await UserController.userService.createUser(new User(req.body.login, req.body.password));
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_CREATED });
       } else {
         res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
@@ -90,9 +90,25 @@ export class UserController {
     }
   }
 
-  // handleUpdateUser(req: Request, res: Response): Promise<void> {
-  //   throw new Error("Method not implemented.");
-  // }
+  private async handleUpdateUser(req: Request, res: Response): Promise<void> {
+    try {
+      res.setHeader('Content-Type', 'application/json');
+      if (req.method !== 'PUT') {
+        res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
+      }
+      if (isValidPostBody(req.body.login, req.body.password)) {
+        const user: User = new User(req.body.login, req.body.password);
+        user.id = req.url.split('/')[2];
+        const result: boolean = await UserController.userService.updateUserById(user);
+        result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_UPDATED });
+      } else {
+        res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
+      }
+    } catch (error) {
+      // TODO: added log error
+      res.status(500).send({ error: UserControllerErorr._500 });
+    }
+  }
 
 }
 const RouterUserController: Router = new UserController().router;
