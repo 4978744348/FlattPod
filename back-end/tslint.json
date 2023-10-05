@@ -4,7 +4,8 @@
     "rules": {
       "no-any": true,
       "typedef": [false, "variable-declaration", "parameter", "property-declaration"],
-      "no-console": false
+      "no-console": false,
+      "max-line-length": [false, 80] 
     }
   }
   

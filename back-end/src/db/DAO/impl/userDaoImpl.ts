@@ -2,7 +2,7 @@ import { User } from "../../../../src/models/user";
 import { UserDao } from "../../../../src/db/DAO/userDao";
 import { poolInstance, RowData } from "../../../../main";
 import { SQLQueryError } from "../../../../src/utils/errors/mysqlErrors";
-import { GET_ALL_ERROR } from "../../../../src/utils/messages/db/userDaoImpl.messages";
+import { GET_ADD_ERROR, GET_ALL_ERROR, DELETE_BY_ID_ERROR, GET_BY_ID_ERROR, UPDATE_BY_ID_ERROR } from "../../../../src/utils/messages/db/userDaoImpl.messages";
 
 export class UserDaoImpl implements UserDao {
 
@@ -20,7 +20,7 @@ export class UserDaoImpl implements UserDao {
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
-              info: GET_ALL_ERROR, // TODO: need to change error info
+              info: GET_ADD_ERROR,
               code: error.code,
               sqlMessage: error.message,
             });
@@ -58,7 +58,7 @@ export class UserDaoImpl implements UserDao {
       poolInstance.query(this.GET_USER_BY_ID + id, (error: SQLQueryError, results: RowData[]) => {
         if (error) {
           console.error({
-            info: GET_ALL_ERROR,
+            info: GET_BY_ID_ERROR,
             code: error.code,
             sqlMessage: error.message,
           });
@@ -71,14 +71,14 @@ export class UserDaoImpl implements UserDao {
     });
   }
 
-  delete(id: number): Promise<boolean> {
+  deleteById(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
         this.DLEETE_USER + id,
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
-              info: GET_ALL_ERROR, // TODO: need to change error info
+              info: DELETE_BY_ID_ERROR,
               code: error.code,
               sqlMessage: error.message,
             });
@@ -98,7 +98,7 @@ export class UserDaoImpl implements UserDao {
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
-              info: GET_ALL_ERROR, // TODO: need to change error info
+              info: UPDATE_BY_ID_ERROR,
               code: error.code,
               sqlMessage: error.message,
             });
