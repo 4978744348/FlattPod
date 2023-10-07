@@ -1,4 +1,4 @@
-type userDaoError = {
+export type userDaoError = {
   class: string;
   method: string;
   message: string;

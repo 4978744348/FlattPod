@@ -22,10 +22,16 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: GET_ADD_ERROR,
               code: error.code,
-              query: error.sql,
+              query: error.sql ? error.sql : undefined,
               sqlMessage: error.message,
             });
-            reject(error);
+            reject({
+              info: GET_ADD_ERROR,
+              code: error.code,
+              query: error.sql ? error.sql : undefined,
+              sqlMessage: error.message,
+              stack: error.stack,
+            });
           } else {
             resolve(true);
           }
@@ -42,10 +48,17 @@ export class UserDaoImpl implements UserDao {
           console.error({
             info: GET_ALL_ERROR,
             code: error.code,
-            query: error.sql,
+            query: error.sql ? error.sql : undefined,
             sqlMessage: error.message,
+            stack: error.stack,
           });
-          reject(Error(error.stack));
+          reject({
+            info: GET_ALL_ERROR,
+            code: error.code,
+            query: error.sql ? error.sql : undefined,
+            sqlMessage: error.message,
+            stack: error.stack,
+          });
         } else {
           results.forEach((item) => users.push(item as User));
           resolve(users);
@@ -62,10 +75,16 @@ export class UserDaoImpl implements UserDao {
           console.error({
             info: GET_BY_ID_ERROR,
             code: error.code,
-            query: error.sql,
+            query: error.sql ? error.sql : undefined,
             sqlMessage: error.message,
           });
-          reject(Error(error.stack));
+          reject({
+            info: GET_BY_ID_ERROR,
+            code: error.code,
+            query: error.sql ? error.sql : undefined,
+            sqlMessage: error.message,
+            stack: error.stack,
+          });
         } else {
           results.forEach((item) => users.push(item as User));
           resolve(users);
@@ -83,10 +102,16 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: DELETE_BY_ID_ERROR,
               code: error.code,
-              query: error.sql,
+              query: error.sql ? error.sql : undefined,
               sqlMessage: error.message,
             });
-            reject(error);
+            reject({
+              info: DELETE_BY_ID_ERROR,
+              code: error.code,
+              query: error.sql ? error.sql : undefined,
+              sqlMessage: error.message,
+              stack: error.stack,
+            });
           } else {
             resolve(true);
           }
@@ -94,6 +119,7 @@ export class UserDaoImpl implements UserDao {
       );
     });
   }
+
   updateById(user: User): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
@@ -104,10 +130,16 @@ export class UserDaoImpl implements UserDao {
             console.error({
               info: UPDATE_BY_ID_ERROR,
               code: error.code,
-              query: error.sql,
+              query: error.sql ? error.sql : undefined,
               sqlMessage: error.message,
             });
-            reject(error);
+            reject({
+              info: UPDATE_BY_ID_ERROR,
+              code: error.code,
+              query: error.sql ? error.sql : undefined,
+              sqlMessage: error.message,
+              stack: error.stack,
+            });
           } else {
             resolve(true);
           }

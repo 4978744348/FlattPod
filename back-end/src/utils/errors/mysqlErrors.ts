@@ -1,5 +1,5 @@
-import { QueryError } from 'mysql2';
+import { QueryError } from "mysql2";
 
 export type SQLQueryError = QueryError & {
-    sql?: string;
+  sql?: string;
 };

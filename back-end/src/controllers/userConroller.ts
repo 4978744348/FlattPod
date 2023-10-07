@@ -28,11 +28,10 @@ export class UserController {
       if (req.method !== 'GET') {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
-      const users: User[] = await UserController.userService.getAllUsers();
+      const users: User[] | null = await UserController.userService.getAllUsers();
       res.send(JSON.stringify(users));
     } catch (error) {
-      // TODO: added log error
-      res.status(500).send({ error: UserControllerErorr._500 });
+      res.status(500).send({ error: UserControllerErorr._500, details: error });
     }
   }
 
@@ -43,14 +42,13 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidUrlPath(req.url)) {
-        const users: User[] = await UserController.userService.getUserById(Number.parseInt(req.url.split('/')[1], 10));
+        const users: User[] | null = await UserController.userService.getUserById(Number.parseInt(req.url.split('/')[1], 10));
         res.send(JSON.stringify(users));
       } else {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_GET_ID });
       }
     } catch (error) {
-      // TODO: added log error
-      res.status(500).send({ error: UserControllerErorr._500 });
+      res.status(500).send({ error: UserControllerErorr._500, details: error });
     }
   }
 
@@ -61,14 +59,13 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidPostBody(req.body.login, req.body.password)) {
-        const result: boolean = await UserController.userService.createUser(new User(req.body.login, req.body.password));
+        const result: boolean | null = await UserController.userService.createUser(new User(req.body.login, req.body.password));
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_CREATED });
       } else {
         res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
       }
     } catch (error) {
-      // TODO: added log error
-      res.status(500).send({ error: UserControllerErorr._500 });
+      res.status(500).send({ error: UserControllerErorr._500, details: error });
     }
   }
 
@@ -79,14 +76,13 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidUrlPath(req.url)) {
-        const result: boolean = await UserController.userService.deleteUser(Number.parseInt(req.url.split('/')[2], 10));
+        const result: boolean | null = await UserController.userService.deleteUser(Number.parseInt(req.url.split('/')[2], 10));
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_DELETED });
       } else {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_DELETE_ID });
       }
     } catch (error) {
-      // TODO: added log error
-      res.status(500).send({ error: UserControllerErorr._500 });
+      res.status(500).send({ error: UserControllerErorr._500, details: error });
     }
   }
 
@@ -99,14 +95,13 @@ export class UserController {
       if (isValidPostBody(req.body.login, req.body.password)) {
         const user: User = new User(req.body.login, req.body.password);
         user.id = req.url.split('/')[2];
-        const result: boolean = await UserController.userService.updateUserById(user);
+        const result: boolean | null = await UserController.userService.updateUserById(user);
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_UPDATED });
       } else {
         res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
       }
     } catch (error) {
-      // TODO: added log error
-      res.status(500).send({ error: UserControllerErorr._500 });
+      res.status(500).send({ error: UserControllerErorr._500, details: error });
     }
   }
 
