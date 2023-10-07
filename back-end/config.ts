@@ -13,6 +13,7 @@ export const config: ServerConfig = {
 };
 
 export const dbConfig: DataBaseConfig = {
+  // host: 'back-end_mysql-db_1', // 'localhost',
   host: 'localhost',
   user: 'admin',
   password: '1234',

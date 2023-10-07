@@ -16,6 +16,9 @@ export class MySQLConnection {
         throw e;
       }
     }
+    if (MySQLConnection.instance === null) {
+      throw new Error('MySQLConnection has not been created');
+    }
     return MySQLConnection.instance;
   }
 }

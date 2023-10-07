@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "eslint . --ext .ts && tslint -p tsconfig.json && tsc",
-    "start": "npm run build && node out/main"
+    "dev": "npm run build && node out/main",
+    "start": "node out/main"
   },
   "author": "",
   "license": "ISC",
