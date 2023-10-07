@@ -13,9 +13,9 @@ export const config: ServerConfig = {
 };
 
 export const dbConfig: DataBaseConfig = {
-  // host: 'back-end_mysql-db_1', // 'localhost',
-  host: 'localhost',
-  user: 'admin',
+  host: 'mysql-db',
+  // host: 'localhost',
+  user: 'root',
   password: '1234',
   database: 'flattpod',
   connectionLimit: 10,

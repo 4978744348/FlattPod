@@ -1,11 +1,13 @@
 version: '3'
 services:
   web-server:
-    image: test7:latest
+    image: test14:latest
     ports:
       - "8080:8080"
   mysql-db:
     image: mysql:8.1.0
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: flattpod
