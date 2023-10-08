@@ -1,5 +1,5 @@
 .vscode
 .env.local
 node_modules
-out
+# out
 draft
