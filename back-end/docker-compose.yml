@@ -1,7 +1,7 @@
 version: '3'
 services:
   web-server:
-    image: test14:latest
+    image: test15:latest
     ports:
       - "8080:8080"
   mysql-db:
@@ -11,5 +11,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: flattpod
+    volumes:
+      - ./db/init_flattpod.sql:/docker-entrypoint-initdb.d/0_init.sql
+      #- $HOME/database:/var/lib/mysql
     ports:
       - "3307:3306"

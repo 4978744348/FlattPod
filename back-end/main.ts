@@ -11,6 +11,7 @@ const port: string = config.port;
 
 app.use(express.json());
 app.use('/api/users', RouterUserController);
+// app.all('*', (req, res) => res.status(404)) not found
 
 app.listen(port, () => {
   console.log(`server started on the ${port}`);
