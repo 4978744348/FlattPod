@@ -6,6 +6,7 @@ WORKDIR /app
 
 #download package/-lock.json and build 
 COPY package*.json ./
+COPY env.json ./
 COPY out ./out
 
 RUN npm install

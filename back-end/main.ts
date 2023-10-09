@@ -1,13 +1,14 @@
+import './server-preload';
+
 import express, { Express } from "express";
-import dotenv from "dotenv";
-dotenv.config();
 import { config } from "./config";
 import { MySQLConnection } from "./src/db/connection";
 import { RowDataPacket, Pool } from "mysql2";
 import { RouterUserController } from "./src/controllers/userConroller";
 
 export const app: Express = express();
-const port: string = config.port;
+
+const port: number = config.port;
 
 app.use(express.json());
 app.use('/api/users', RouterUserController);
