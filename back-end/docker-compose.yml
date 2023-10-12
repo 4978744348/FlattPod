@@ -1,16 +1,19 @@
 version: '3'
 services:
   web-server:
-    image: test15:latest
+    container_name: flattpod-server
+    image: fp-server:latest
+    restart: always
     ports:
       - "8080:8080"
   mysql-db:
+    container_name: flattpod-db
     image: mysql:8.1.0
     command: --default-authentication-plugin=caching_sha2_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: flattpod
+      MYSQL_ROOT_PASSWORD: ${FLATTPOD_MYSQL_DB}
+      MYSQL_DATABASE: ${FLATTPOD_MYSQL_PASSWORD}
     volumes:
       - ./db/init_flattpod.sql:/docker-entrypoint-initdb.d/0_init.sql
       #- $HOME/database:/var/lib/mysql

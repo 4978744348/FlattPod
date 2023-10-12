@@ -32,7 +32,8 @@ INSERT INTO `user` (`id`, `login`, `password`) VALUES
 	(2, 'evgen0sdfsdfdsfsdf98765', '55sdfsdfsdf5666'),
 	(3, 'test3', 'testpassw333'),
 	(4, 'test4', 'testpassw444'),
-	(5, 'test4', 'testpassw444');
+	(5, 'test4', 'testpassw444'),
+  (6, 'flatt', 'pod');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

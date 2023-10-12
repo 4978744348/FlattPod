@@ -1,5 +1,6 @@
 .vscode
 .env.local
+.env
 node_modules
 out
 draft
