@@ -5,9 +5,9 @@ jobs:
       - image: circleci/node:14
     steps:
       - checkout
-      - run:
-        name: Set up SSH key
-        command: echo "$SSH_KEY" > /home/circleci/.ssh/id_rsa
+      - add_ssh_keys:
+          fingerprints:
+            - YOUR_SSH_KEY_FINGERPRINT
       - run: npm install
       - run: npm run build
      # - run: npm test
