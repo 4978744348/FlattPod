@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "eslint . --ext .ts && tslint -p tsconfig.json && tsc",
+    "npx": "npx ts-node main.ts",
     "dev": "npm run build && node out/main",
     "start": "node out/main"
   },
@@ -16,6 +17,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "typescript": "^5.2.2",
+    "ts-node": "^10.4.0",
     "@types/body-parser": "^1.19.3",
     "@types/express": "^4.17.18",
     "@types/node": "^20.6.5",
