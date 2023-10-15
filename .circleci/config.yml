@@ -8,7 +8,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - b2:3f:b3:45:66:56:4b:96:19:2c:a8:73:83:67:7a:25
-      - run: cd back-end && npm install
+      - run: cd back-end node -v && npm -v && npm install
       # - run: 
       #   name: run build
       #   command: cd back-end | npm run build
