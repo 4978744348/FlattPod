@@ -8,6 +8,12 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - b2:3f:b3:45:66:56:4b:96:19:2c:a8:73:83:67:7a:25
+      - run:
+        name: Create .env file
+        command: |
+          cd back-end && MY_SECRET_KEY=$(circleci context get my-context-name -k secret-key)
+          cd back-end && "{\"SECRET_KEY\":\"$MY_SECRET_KEY\"}" > .env
+          cd back-end && cat .env
       - run: cd back-end && node -v && npm -v && npm install
       - run: cd back-end && cat env.json
       - run: cd back-end && npm run build 

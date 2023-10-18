@@ -1,4 +1,4 @@
-import KEYS from './env.json';
+import KEYS from './cfg.json';
 
 const initSecrets = ():void => {
   process.env.FLATTPOD_MYSQL_PROD_HOST=KEYS.FLATTPOD_MYSQL_PROD_HOST;
