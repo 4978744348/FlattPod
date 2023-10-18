@@ -16,11 +16,13 @@ jobs:
             npm -v
             npm install
           environment:
-            SECRET_KEY: $SECRET_KEY
+            MYSQL_HOST: $FLATTPOD_MYSQL_PROD_HOST
+            MYSQL_NONPROD_HOST: $FLATTPOD_MYSQL_NONPROD_HOST
       - run:
           name: Create cfg.json file
           command: |
-            echo "{\"FLATT_POD_SECRET_KEY\":\"$SECRET_KEY\"}" > ./back-end/cfg.json
+            echo "{\"FLATTPOD_MYSQL_PROD_HOST\":\"$MYSQL_HOST\"," > ./back-end/cfg.json
+            echo "{\"FLATTPOD_MYSQL_NONPROD_HOST\":\"$MYSQL_NONPROD_HOST\"}" >> ./back-end/cfg.json
             cat ./back-end/cfg.json
       - run:
           name: Build the project
