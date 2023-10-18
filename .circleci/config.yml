@@ -18,6 +18,13 @@ jobs:
           environment:
             FLATTPOD_MYSQL_PROD_HOST: $FLATTPOD_MYSQL_PROD_HOST
             FLATTPOD_MYSQL_NONPROD_HOST: $FLATTPOD_MYSQL_NONPROD_HOST
+            FLATTPOD_MYSQL_USER: $FLATTPOD_MYSQL_USER
+            FLATTPOD_MYSQL_PASSWORD: $FLATTPOD_MYSQL_PASSWORD
+            FLATTPOD_MYSQL_DB: $FLATTPOD_MYSQL_DB
+            FLATTPOD_MYSQL_LIMIT: $FLATTPOD_MYSQL_LIMIT
+            FLATTPOD_MYSQL_PORT: $FLATTPOD_MYSQL_PORT
+            FLATTPOD_SERVER_PORT: $FLATTPOD_SERVER_PORT
+            FLATTPOD_PROD: $FLATTPOD_PROD
             SECRET_KEY: $SECRET_KEY
             SECRET_KEY_TEST: $SECRET_KEY
       - run:
@@ -25,6 +32,13 @@ jobs:
           command: |
             echo "{\"FLATTPOD_MYSQL_PROD_HOST\":\"$FLATTPOD_MYSQL_PROD_HOST\"," > ./back-end/cfg.json
             echo "\"FLATTPOD_MYSQL_NONPROD_HOST\":\"$FLATTPOD_MYSQL_NONPROD_HOST\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_USER\":\"$FLATTPOD_MYSQL_USER\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_PASSWORD\":\"$FLATTPOD_MYSQL_PASSWORD\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_DB\":\"$FLATTPOD_MYSQL_DB\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_LIMIT\":\"$FLATTPOD_MYSQL_LIMIT\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_PORT\":\"$FLATTPOD_MYSQL_PORT\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_SERVER_PORT\":\"$FLATTPOD_SERVER_PORT\"," >> ./back-end/cfg.json
+            echo "\"FLATTPOD_PROD\":\"$FLATTPOD_PROD\"," >> ./back-end/cfg.json
             echo "\"FLATT_POD_SECRET_KEY\":\"$SECRET_KEY\"," >> ./back-end/cfg.json
             echo "\"FLATT_POD_SECRET_KEY\":\"$SECRET_KEY_TEST\"}" >> ./back-end/cfg.json
             cat ./back-end/cfg.json
