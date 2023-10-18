@@ -15,7 +15,7 @@ jobs:
             node -v
             npm -v
             npm install
-            npm run build
+          # npm run build
           environment:
             SECRET_KEY: $SECRET_KEY
       - run:
