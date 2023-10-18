@@ -22,7 +22,7 @@ jobs:
           name: Create cfg.json file
           command: |
             echo "{\"FLATTPOD_MYSQL_PROD_HOST\":\"$MYSQL_HOST\"," > ./back-end/cfg.json
-            echo "{\"FLATTPOD_MYSQL_NONPROD_HOST\":\"$MYSQL_NONPROD_HOST\"}" >> ./back-end/cfg.json
+            echo "\"FLATTPOD_MYSQL_NONPROD_HOST\":\"$MYSQL_NONPROD_HOST\"}" >> ./back-end/cfg.json
             cat ./back-end/cfg.json
       - run:
           name: Build the project
