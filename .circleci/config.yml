@@ -11,8 +11,8 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            MY_SECRET_KEY=$(circleci context get -k secret-key -c flattpod)
-            echo "{\"SECRET_KEY\":\"$MY_SECRET_KEY\"}" > ./back-end/.env
+            MY_SECRET_KEY=$(circleci context get SECRET_KEY -c flattpod)
+            echo "{\"SECRET_KEY\":\"$MY_SECRET_KEY\"}" > ./back-end/.env.json
             cat ./back-end/.env
       - run:
           name: Build the project
