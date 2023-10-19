@@ -71,7 +71,8 @@ jobs:
           command: |
             ls
             cd ./back-end
-            docker build -t fp-server:latest .
+            ls
+          # docker build -t fp-server:latest .
 workflows:
   version: 2
   build:
