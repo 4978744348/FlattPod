@@ -46,5 +46,17 @@ jobs:
           name: Build the project
           command: |
             cd ./back-end
-            ls
             npm run build
+            ls
+  test:
+    docker:
+      - image: cimg/node:18.18.0
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: |
+            cd ./back-end
+            echo "will be tests here soon"
+            ls
+
