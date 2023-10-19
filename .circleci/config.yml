@@ -59,4 +59,14 @@ jobs:
             cd ./back-end
             echo "will be tests here soon"
             ls
-
+  build-docker-container:
+    docker:
+      - image: docker:20.10.5
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image fp-server
+          command: |
+            cd ./back-end
+            docker build -t fp-server:latest .
