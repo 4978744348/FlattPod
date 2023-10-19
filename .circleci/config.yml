@@ -52,7 +52,9 @@ jobs:
       - persist_to_workspace:
           root: ./back-end
           paths:
-            - .env.json
+            - .cfg.json
+            - out
+            - node_modules
   tests:
     docker:
       - image: cimg/node:18.18.0
