@@ -52,7 +52,7 @@ jobs:
       - persist_to_workspace:
           root: ./back-end
           paths:
-            - .cfg.json
+            - cfg.json
             - out
             - node_modules
   tests:
