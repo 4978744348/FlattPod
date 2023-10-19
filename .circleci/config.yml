@@ -48,14 +48,22 @@ jobs:
             cd ./back-end
             npm run build
             ls
+          when: always
+      - persist_to_workspace:
+          root: ./back-end
+          paths:
+            - .env.json
   tests:
     docker:
       - image: cimg/node:18.18.0
     steps:
       - checkout
+      - attach_workspace:
+          at: ./back-end
       - run:
           name: Test
           command: |
+            ls
             cd ./back-end
             echo "will be tests here soon"
             ls
@@ -66,13 +74,15 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - attach_workspace:
+          at: ./back-end
       - run:
           name: Build Docker image fp-server
           command: |
             ls
             cd ./back-end
             ls
-          # docker build -t fp-server:latest .
+            docker build -t fp-server:latest .
 workflows:
   version: 2
   build:
