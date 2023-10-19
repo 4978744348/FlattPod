@@ -48,7 +48,7 @@ jobs:
             cd ./back-end
             npm run build
             ls
-  test:
+  tests:
     docker:
       - image: cimg/node:18.18.0
     steps:
