@@ -91,7 +91,6 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          ls
           at: ./back-end
       - run:
           name: Connect to EC2
