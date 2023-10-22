@@ -109,4 +109,4 @@ workflows:
             - build
       - deploy-AWS-EC2:
               requires:
-                - test
+                - tests
