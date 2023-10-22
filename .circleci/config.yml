@@ -89,14 +89,14 @@ jobs:
     docker:
       - image: amazon/aws-cli:2.13.26
     steps:
-      - run:
-          name: Install tar
-          command: |
-            sudo yum install tar
-            tar --version
+      # - run:
+      #     name: Install tar
+      #     command: |
+      #       sudo yum install tar
+      #       tar --version
       - checkout
-      - attach_workspace:
-          at: ./back-end
+      # - attach_workspace:
+      #     at: ./back-end
       - run:
           name: Connect to EC2
           command: |
