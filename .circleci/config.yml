@@ -90,9 +90,9 @@ jobs:
       - image: amazon/aws-cli:2.13.26
     steps:
       - run:
-        name: Install tar
-        command: |
-          apk add tar 
+          name: Install tar
+          command: |
+            apk add tar 
       - checkout
       - attach_workspace:
           at: ./back-end
@@ -109,9 +109,9 @@ workflows:
       - tests:
           requires:
             - build
-      - build-docker-container:
-          requires:
-            - build
+      # - build-docker-container:
+      #     requires:
+      #       - build
       - deploy-AWS-EC2:
               requires:
                 - tests
