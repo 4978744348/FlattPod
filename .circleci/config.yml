@@ -94,7 +94,7 @@ jobs:
       #     command: |
       #       sudo yum install tar
       #       tar --version
-       - run:
+      - run:
           name: Install SSH client
           command: |
             yum install -y openssh-client
