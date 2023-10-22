@@ -117,7 +117,9 @@ jobs:
           name: Connect to EC2
           command: |
             ls
-            ssh ec2-user@$PUBLIC_IP  "aws --version"
+            ssh ec2-user@$PUBLIC_IP "aws --version"
+            ssh ec2-user@$PUBLIC_IP "mkdir test"
+            ssh ec2-user@$PUBLIC_IP "ls"
 workflows:
   version: 2
   build:
