@@ -134,5 +134,3 @@ workflows:
       - deploy-AWS-EC2:
               requires:
                 - tests
-
-                 command: ssh ubuntu@$NEW_INSTANCE_IP 
