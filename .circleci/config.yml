@@ -98,7 +98,7 @@ jobs:
           name: Install SSH client
           command: |
             yum install -y openssh-clients
-       - run:
+      - run:
           name: Create SSH directory if it doesn't exist
           command: |
             mkdir -p ~/.ssh
