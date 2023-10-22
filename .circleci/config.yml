@@ -92,7 +92,8 @@ jobs:
       - run:
           name: Install tar
           command: |
-            apk add tar 
+            sudo yum install tar
+            tar --version
       - checkout
       - attach_workspace:
           at: ./back-end
