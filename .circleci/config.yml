@@ -107,3 +107,6 @@ workflows:
       - build-docker-container:
           requires:
             - build
+      - deploy-AWS-EC2:
+              requires:
+                - test
