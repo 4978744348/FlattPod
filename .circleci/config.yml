@@ -89,6 +89,10 @@ jobs:
     docker:
       - image: amazon/aws-cli:2.13.26
     steps:
+      - run:
+        name: Install tar
+        command: |
+          apk add tar 
       - checkout
       - attach_workspace:
           at: ./back-end
