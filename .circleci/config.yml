@@ -89,7 +89,9 @@ jobs:
     docker:
       - image: amazon/aws-cli:2.13.26
     steps:
+      - checkout
       - attach_workspace:
+          ls
           at: ./back-end
       - run:
           name: Connect to EC2
