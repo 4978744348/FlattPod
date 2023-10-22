@@ -98,11 +98,16 @@ jobs:
           name: Install SSH client
           command: |
             yum install -y openssh-clients
+       - run:
+          name: Create SSH directory if it doesn't exist
+          command: |
+            mkdir -p ~/.ssh
+          when: ! -d ~/.ssh
       - run:
           name: Add EC2 Host Key to SSH Known Hosts
           command: |
             ls
-            ssh-keyscan -H $PUBLIC_IP > ~/.ssh/known_hosts
+            ssh-keyscan -H $PUBLIC_IP >> ~/.ssh/known_hosts
       - checkout
       - add_ssh_keys:
           fingerprints:
