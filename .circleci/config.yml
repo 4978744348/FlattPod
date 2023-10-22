@@ -97,7 +97,7 @@ jobs:
       - run:
           name: Install SSH client
           command: |
-            yum install -y openssh-client
+            yum install -y openssh-clients
       - checkout
       # - attach_workspace:
       #     at: ./back-end
