@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { UserService, UserServiceImpl } from '../services';
-import { User } from '../types';
+import { User, ClientErrors } from '../types';
 import { isValidPostBody, isValidUrlPath } from '../utils/regex';
 import { UserControllerErorr } from '../utils/messages/controllers/userConroller.messages';
 
@@ -42,7 +42,7 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidUrlPath(req.url)) {
-        const users: User[] | null = await UserController.userService.getUserById(Number.parseInt(req.url.split('/')[1], 10));
+        const users: User[] | null = await UserController.userService.getUserById(req.url.split('/')[1]);
         res.send(JSON.stringify(users));
       } else {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_GET_ID });
@@ -58,14 +58,14 @@ export class UserController {
       if (req.method !== 'POST') {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
-      if (isValidPostBody(req.body.login, req.body.password)) {
-        const result: boolean | null = await UserController.userService.createUser(new User(req.body.login, req.body.password));
+      if (isValidPostBody(req.body.user_id, req.body.email)) {
+        const result: boolean | null = await UserController.userService.createUser(new User(req.body.user_id, req.body.email));
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_CREATED });
       } else {
-        res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
+        res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS, allowed_fields: User.getProperties()});
       }
     } catch (error) {
-      res.status(500).send({ error: UserControllerErorr._500, details: error });
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack });
     }
   }
 
@@ -76,7 +76,7 @@ export class UserController {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
       if (isValidUrlPath(req.url)) {
-        const result: boolean | null = await UserController.userService.deleteUser(Number.parseInt(req.url.split('/')[2], 10));
+        const result: boolean | null = await UserController.userService.deleteUser(req.url.split('/')[2]);
         result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_DELETED });
       } else {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_DELETE_ID });
@@ -92,13 +92,14 @@ export class UserController {
       if (req.method !== 'PUT') {
         res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
       }
-      if (isValidPostBody(req.body.login, req.body.password)) {
-        const user: User = new User(req.body.login, req.body.password);
+      if (isValidPostBody(req.body.email)) {
+        const user: User = new User('', req.body.email);
         user.id = req.url.split('/')[2];
         const result: boolean | null = await UserController.userService.updateUserById(user);
-        result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_UPDATED });
+        result ? res.status(204).send() :
+          res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_UPDATED, allowed_fields: User.getProperties() });
       } else {
-        res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS });
+        res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS, allowed_fields: User.getProperties() });
       }
     } catch (error) {
       res.status(500).send({ error: UserControllerErorr._500, details: error });

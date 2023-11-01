@@ -2,21 +2,22 @@ import { User } from "../../../../src/models/user";
 import { UserDao } from "../../../../src/db/DAO/userDao";
 import { poolInstance, RowData } from "../../../../main";
 import { SQLQueryError } from "../../../../src/utils/errors/mysqlErrors";
-import { GET_ADD_ERROR, GET_ALL_ERROR, DELETE_BY_ID_ERROR, GET_BY_ID_ERROR, UPDATE_BY_ID_ERROR } from "../../../../src/utils/messages/db/userDaoImpl.messages";
+import { GET_ADD_ERROR, GET_ALL_ERROR, DELETE_BY_ID_ERROR,
+  GET_BY_ID_ERROR, UPDATE_BY_ID_ERROR } from "../../../../src/utils/messages/db/userDaoImpl.messages";
 
 export class UserDaoImpl implements UserDao {
 
-  private readonly GET_ALL_USERS = "SELECT id, login, password FROM user";
-  private readonly GET_USER_BY_ID = "SELECT id, login, PASSWORD FROM user WHERE id =";
-  private readonly ADD_USER = "INSERT INTO user (login, password) VALUES (?, ?)";
-  private readonly DLEETE_USER = "DELETE FROM user WHERE id=";
-  private readonly UPDATE_USER = "UPDATE user SET login = ?, password = ? WHERE id =";
+  private readonly GET_ALL_USERS = "SELECT user_id, email FROM user";
+  private readonly GET_USER_BY_ID = "SELECT email FROM user WHERE user_id =";
+  private readonly ADD_USER = "INSERT INTO user (user_id, email) VALUES (?, ?)";
+  private readonly DLEETE_USER = "DELETE FROM user WHERE user_id=";
+  private readonly UPDATE_USER = "UPDATE user SET email = ? WHERE user_id=";
 
   add(user: User): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
         this.ADD_USER,
-        [user.login, user.password],
+        [user.id, user.email],
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
@@ -67,10 +68,10 @@ export class UserDaoImpl implements UserDao {
     });
   }
 
-  getById(id: number): Promise<User[]> {
+  getById(id: string): Promise<User[]> {
     return new Promise((resolve, reject) => {
       const users: User[] = [];
-      poolInstance.query(this.GET_USER_BY_ID + id, (error: SQLQueryError, results: RowData[]) => {
+      poolInstance.query(this.GET_USER_BY_ID + `"${id}"`, (error: SQLQueryError, results: RowData[]) => {
         if (error) {
           console.error({
             info: GET_BY_ID_ERROR,
@@ -93,10 +94,10 @@ export class UserDaoImpl implements UserDao {
     });
   }
 
-  deleteById(id: number): Promise<boolean> {
+  deleteById(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
-        this.DLEETE_USER + id,
+        this.DLEETE_USER + `"${id}"`,
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({
@@ -123,8 +124,8 @@ export class UserDaoImpl implements UserDao {
   updateById(user: User): Promise<boolean> {
     return new Promise((resolve, reject) => {
       poolInstance.query(
-        this.UPDATE_USER + user.id,
-        [user.login, user.password],
+        this.UPDATE_USER + `"${user.id}"`,
+        [user.email],
         (error: SQLQueryError | null) => {
           if (error) {
             console.error({

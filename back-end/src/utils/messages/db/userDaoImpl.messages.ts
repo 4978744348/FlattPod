@@ -4,6 +4,12 @@ export type userDaoError = {
   message: string;
 }
 
+export const ADD_USER_ERROR: userDaoError = {
+  class: 'UserDaoImpl',
+  method: 'add',
+  message: 'user.id or user.email is undefined'
+};
+
 export const GET_ALL_ERROR: userDaoError = {
   class: 'UserDaoImpl',
   method: 'getAll',

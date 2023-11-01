@@ -16,7 +16,7 @@ export class UserServiceImpl implements UserService {
     return null;
   }
 
-  async getUserById(id: number): Promise<User[] | null> {
+  async getUserById(id: string): Promise<User[] | null> {
     try {
       return await this.userDao.getById(id);
     } catch (error) {
@@ -38,7 +38,7 @@ export class UserServiceImpl implements UserService {
     return null;
   }
 
-  async deleteUser(id: number): Promise<boolean | null> {
+  async deleteUser(id: string): Promise<boolean | null> {
     try {
       return await this.userDao.deleteById(id);
     } catch (error) {
