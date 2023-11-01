@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { UserService, UserServiceImpl } from '../services';
 import { User, ClientErrors } from '../types';
-import { isValidPostBody, isValidUrlPath } from '../utils/regex';
+import { isValidPostBody, isValidUrlPath, isValidPostBodyWithJWT } from '../utils/regex';
 import { UserControllerErorr } from '../utils/messages/controllers/userConroller.messages';
 
 
@@ -20,6 +20,24 @@ export class UserController {
     this.router.post('/create', this.handleAddUser);
     this.router.delete('/delete/:id', this. handleDeleteUser);
     this.router.put('/update/:id', this. handleUpdateUser);
+    this.router.post('/read-create/user/jwt', this. handleCreateUserFromJWT);
+  }
+
+  private async handleCreateUserFromJWT(req: Request, res: Response): Promise<void> {
+    try {
+      res.setHeader('Content-Type', 'application/json');
+      if (req.method !== 'POST') {
+        res.status(405).send({ error: UserControllerErorr._400_METHOD_NOT_ALLOWED });
+      }
+      if (isValidPostBodyWithJWT(req.body.jwt_token)) {
+        const result = await UserController.userService.createUserFromJWT(req.body.jwt_token);
+        result ? res.status(204).send() : res.status(400).send({ error: UserControllerErorr._400_USER_WAS_NOT_CREATED });
+      } else {
+        res.status(400).send({ allowed_fields: ['jwt_token'] });
+      }
+    } catch (error) {
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack });
+    }
   }
 
   private async handleGetAllUsers(req: Request, res: Response): Promise<void> {
@@ -31,7 +49,7 @@ export class UserController {
       const users: User[] | null = await UserController.userService.getAllUsers();
       res.send(JSON.stringify(users));
     } catch (error) {
-      res.status(500).send({ error: UserControllerErorr._500, details: error });
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack});
     }
   }
 
@@ -48,7 +66,7 @@ export class UserController {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_GET_ID });
       }
     } catch (error) {
-      res.status(500).send({ error: UserControllerErorr._500, details: error });
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack });
     }
   }
 
@@ -82,7 +100,7 @@ export class UserController {
         res.status(400).send({ error: UserControllerErorr._400_WRONG_DELETE_ID });
       }
     } catch (error) {
-      res.status(500).send({ error: UserControllerErorr._500, details: error });
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack });
     }
   }
 
@@ -102,7 +120,7 @@ export class UserController {
         res.status(400).send({ error: UserControllerErorr._400_NOT_ALLOWED_TAGS, allowed_fields: User.getProperties() });
       }
     } catch (error) {
-      res.status(500).send({ error: UserControllerErorr._500, details: error });
+      res.status(500).send({ error: UserControllerErorr._500, details: (error as ClientErrors).message || (error as ClientErrors).stack });
     }
   }
 

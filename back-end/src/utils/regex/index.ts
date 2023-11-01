@@ -10,3 +10,10 @@ export const isValidPostBody = (...body: string[]): boolean => {
   }
   return true;
 };
+
+export const isValidPostBodyWithJWT = (jwt: string): boolean => {
+  if (jwt === undefined || /[^a-zA-Z0-9.\-_]/.test(jwt)) {
+    return false;
+  }
+  return true;
+};

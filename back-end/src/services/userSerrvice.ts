@@ -6,4 +6,5 @@ export interface UserService {
   createUser (user: User): Promise<boolean | null>;
   deleteUser (id: string): Promise<boolean | null>;
   updateUserById (user: User): Promise<boolean | null>;
+  createUserFromJWT(token: string): Promise<boolean | null>;
 }
